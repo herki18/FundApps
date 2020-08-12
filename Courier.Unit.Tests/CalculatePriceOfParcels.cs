@@ -7,12 +7,14 @@ namespace Courier.Unit.Tests
     public class CalculatePriceOfParcels
     {
         [Theory]
-        [MemberData(nameof(TestData.Data), MemberType = typeof(TestData))]
-        public void Given_Order_Should_Return_Correct_Calculated_Prices(List<Parcel> parcels, Order order)
+        [MemberData(nameof(TestData.OneParcel), MemberType = typeof(TestData))]
+        [MemberData(nameof(TestData.MultipleParcels), MemberType = typeof(TestData))]
+        [MemberData(nameof(TestData.MultipleParcelsWithFastShipping), MemberType = typeof(TestData))]
+        public void Given_Order_Should_Return_Correct_Calculated_Prices(bool fastDelivery, List<Parcel> parcels, Order order)
         {
             var process = new Process();
 
-            var orderResult = process.Calculate(parcels);
+            var orderResult = process.Calculate(parcels, fastDelivery);
 
             Compare(orderResult, order);
         }

@@ -6,7 +6,7 @@ namespace Courier
 {
     public class Process
     {
-        public Order Calculate(List<Parcel> parcels)
+        public Order Calculate(List<Parcel> parcels, bool fastDelivery)
         {
             var order = new Order();
             foreach (var parcel in parcels)
@@ -48,6 +48,12 @@ namespace Courier
                 item.Costs.Add(cost);
 
                 order.Items.Add(item);
+            }
+
+            if (fastDelivery)
+            {
+                order.FastDelivery = order.Total;
+                order.Total = order.Total * 2;
             }
 
             return order;

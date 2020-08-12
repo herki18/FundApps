@@ -5,10 +5,11 @@ namespace Courier.Unit.Tests
 {
     public class TestData
     {
-        public static IEnumerable<object[]> Data()
+        public static IEnumerable<object[]> OneParcel()
         {
             yield return new object[]
             {
+                false,
                 new List<Parcel> { new Parcel(1, 9) },
                 new Order()
                 {
@@ -29,6 +30,7 @@ namespace Courier.Unit.Tests
 
             yield return new object[]
             {
+                false,
                 new List<Parcel> { new Parcel(1, 15) },
                 new Order()
                 {
@@ -49,6 +51,7 @@ namespace Courier.Unit.Tests
 
             yield return new object[]
             {
+                false,
                 new List<Parcel> { new Parcel(2, 65) },
                 new Order()
                 {
@@ -69,6 +72,7 @@ namespace Courier.Unit.Tests
 
             yield return new object[]
             {
+                false,
                 new List<Parcel> { new Parcel(3, 110) },
                 new Order()
                 {
@@ -86,13 +90,50 @@ namespace Courier.Unit.Tests
                     }
                 }
             };
+        }
 
+        public static IEnumerable<object[]> MultipleParcels()
+        {
             yield return new object[]
             {
-                new List<Parcel> { new Parcel(4, 9), new Parcel(5, 15) }, 
+                false,
+                new List<Parcel> { new Parcel(4, 9), new Parcel(5, 15) },
                 new Order()
                 {
                     Total = 11,
+                    Items = new List<Item>()
+                    {
+                        new Item()
+                        {
+                            Total = 3,
+                            Costs = new List<Cost>()
+                            {
+                                new Cost() {Name = "Size", Price = 3}
+                            }
+                        },
+                        new Item()
+                        {
+                            Total = 8,
+                            Costs = new List<Cost>()
+                            {
+                                new Cost() {Name = "Size", Price = 8}
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> MultipleParcelsWithFastShipping()
+        {
+            yield return new object[]
+            {
+                true,
+                new List<Parcel> { new Parcel(4, 9), new Parcel(5, 15) },
+                new Order()
+                {
+                    Total = 22,
+                    FastDelivery = 11,
                     Items = new List<Item>()
                     {
                         new Item()

@@ -98,6 +98,29 @@ namespace Courier.Unit.Tests
                     }
                 }
             };
+
+            yield return new object[]
+            {
+                false,
+                new List<Parcel> { new Parcel(3, 110, 55) },
+                new Order()
+                {
+                    Total = 80,
+                    Items = new List<Item>()
+                    {
+                        new Item()
+                        {
+                            ParcelType = ParcelType.Heavy,
+                            Total = 80,
+                            Costs = new Dictionary<string, float>()
+                            {
+                                { Constants.Size, 25 },
+                                { Constants.Weight, 55 }
+                            }
+                        }
+                    }
+                }
+            };
         }
 
         public static IEnumerable<object[]> MultipleParcels()

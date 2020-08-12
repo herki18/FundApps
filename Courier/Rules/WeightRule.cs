@@ -13,22 +13,31 @@ namespace Courier.Rules
             {
                 case ParcelType.Small:
                 {
-                    cost = Calculate(parcel.Weight, 1);
+                    cost = Calculate(parcel.Weight, 1, 2);
                     break;
                 }
                 case ParcelType.Medium:
                 {
-                    cost = Calculate(parcel.Weight, 3);
+                    cost = Calculate(parcel.Weight, 3, 2);
                     break;
                 }
                 case ParcelType.Large:
                 {
-                    cost = Calculate(parcel.Weight, 6);
+                    cost = Calculate(parcel.Weight, 6, 2);
                     break;
                 }
                 case ParcelType.XL:
                 {
-                    cost = Calculate(parcel.Weight, 10);
+                    if (parcel.Weight < 50)
+                    {
+                        cost = Calculate(parcel.Weight, 10, 2);
+                    }
+                    else
+                    {
+                        item.ParcelType = ParcelType.Heavy;
+                        cost = 50 +  Calculate(parcel.Weight, 50, 1);
+                    }
+                    
                     break;
                 }
             }
@@ -39,10 +48,10 @@ namespace Courier.Rules
             return item;
         }
 
-        private float Calculate(float weight, float limit)
+        private float Calculate(float weight, float limit, float cost)
         {
             var diff = limit - weight;
-            return diff < limit ? Math.Abs(diff) * 2 : 0;
+            return diff < limit ? Math.Abs(diff) * cost : 0;
         }
     }
 }

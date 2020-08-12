@@ -51,7 +51,7 @@ namespace Courier.Rules
         private float Calculate(float weight, float limit, float cost)
         {
             var diff = limit - weight;
-            return diff < limit ? Math.Abs(diff) * cost : 0;
+            return weight > limit ? Math.Abs(diff) * cost : 0;
         }
     }
 }

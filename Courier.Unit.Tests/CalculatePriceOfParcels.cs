@@ -10,6 +10,7 @@ namespace Courier.Unit.Tests
         [MemberData(nameof(TestData.OneParcel), MemberType = typeof(TestData))]
         [MemberData(nameof(TestData.MultipleParcels), MemberType = typeof(TestData))]
         [MemberData(nameof(TestData.MultipleParcelsWithFastShipping), MemberType = typeof(TestData))]
+        [MemberData(nameof(TestData.DiscountedMultipleParcelsWithFastShipping), MemberType = typeof(TestData))]
         public void Given_Order_Should_Return_Correct_Calculated_Prices(bool fastDelivery, List<Parcel> parcels, Order order)
         {
             var process = new Process();
@@ -29,6 +30,7 @@ namespace Courier.Unit.Tests
             for (int index = 0; index < expected.Items.Count; index++)
             {
                 Assert.Equal(expected.Items[index].Total, calculated.Items[index].Total);
+                Assert.Equal(expected.Items[index].Discount, calculated.Items[index].Discount);
                 Assert.Equal(expected.Items[index].Costs.Count, calculated.Items[index].Costs.Count);
                 Assert.Equal(expected.Items[index].ParcelType, calculated.Items[index].ParcelType);
 

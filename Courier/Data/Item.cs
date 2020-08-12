@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Courier.Data
 {
     public class Item
     {
-        public List<Cost> Costs = new List<Cost>();
+        public ParcelType ParcelType;
+
+        public Dictionary<string, float> Costs = new Dictionary<string, float>();
+
         public float Total;
     }
 }

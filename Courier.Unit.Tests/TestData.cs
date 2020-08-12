@@ -10,18 +10,20 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 false,
-                new List<Parcel> { new Parcel(1, 9) },
+                new List<Parcel> { new Parcel(1, 9, 2) },
                 new Order()
                 {
-                    Total = 3,
+                    Total = 5,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 3,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Small,
+                            Total = 5,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 3}
+                                { Constants.Size, 3},
+                                { Constants.Weight, 2 }
                             }
                         }
                     }
@@ -31,18 +33,20 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 false,
-                new List<Parcel> { new Parcel(1, 15) },
+                new List<Parcel> { new Parcel(1, 15, 4) },
                 new Order()
                 {
-                    Total = 8,
+                    Total = 10,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 8,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Medium,
+                            Total = 10,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 8}
+                                { Constants.Size, 8 },
+                                { Constants.Weight, 2 }
                             }
                         }
                     }
@@ -52,18 +56,20 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 false,
-                new List<Parcel> { new Parcel(2, 65) },
+                new List<Parcel> { new Parcel(2, 65, 7) },
                 new Order()
                 {
-                    Total = 15,
+                    Total = 17,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 15,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Large,
+                            Total = 17,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 15}
+                                { Constants.Size, 15 },
+                                { Constants.Weight, 2 }
                             }
                         }
                     }
@@ -73,18 +79,20 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 false,
-                new List<Parcel> { new Parcel(3, 110) },
+                new List<Parcel> { new Parcel(3, 110, 11) },
                 new Order()
                 {
-                    Total = 25,
+                    Total = 27,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 25,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.XL,
+                            Total = 27,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 25}
+                                { Constants.Size, 25 },
+                                { Constants.Weight, 2 }
                             }
                         }
                     }
@@ -97,26 +105,30 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 false,
-                new List<Parcel> { new Parcel(4, 9), new Parcel(5, 15) },
+                new List<Parcel> { new Parcel(4, 9, 2), new Parcel(5, 15, 4) },
                 new Order()
                 {
-                    Total = 11,
+                    Total = 15,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 3,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Small,
+                            Total = 5,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 3}
+                                { Constants.Size, 3 },
+                                { Constants.Weight, 2 }
                             }
                         },
                         new Item()
                         {
-                            Total = 8,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Medium,
+                            Total = 10,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 8}
+                                { Constants.Size, 8 },
+                                { Constants.Weight, 2 }
                             }
                         }
                     }
@@ -129,27 +141,31 @@ namespace Courier.Unit.Tests
             yield return new object[]
             {
                 true,
-                new List<Parcel> { new Parcel(4, 9), new Parcel(5, 15) },
+                new List<Parcel> { new Parcel(4, 9, 2), new Parcel(5, 15, 5) },
                 new Order()
                 {
-                    Total = 22,
-                    FastDelivery = 11,
+                    Total = 34,
+                    FastDelivery = 17,
                     Items = new List<Item>()
                     {
                         new Item()
                         {
-                            Total = 3,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Small,
+                            Total = 5,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 3}
+                                { Constants.Size, 3 },
+                                { Constants.Weight, 2 }
                             }
                         },
                         new Item()
                         {
-                            Total = 8,
-                            Costs = new List<Cost>()
+                            ParcelType = ParcelType.Medium,
+                            Total = 12,
+                            Costs = new Dictionary<string, float>()
                             {
-                                new Cost() {Name = "Size", Price = 8}
+                                { Constants.Size, 8 },
+                                { Constants.Weight, 4 }
                             }
                         }
                     }

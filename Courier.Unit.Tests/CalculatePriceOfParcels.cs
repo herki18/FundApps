@@ -22,17 +22,22 @@ namespace Courier.Unit.Tests
         private void Compare(Order calculated, Order expected)
         {
             Assert.Equal(expected.Total, calculated.Total);
+            Assert.Equal(expected.FastDelivery, calculated.FastDelivery);
             Assert.Equal(expected.Items.Count, calculated.Items.Count);
+            
 
             for (int index = 0; index < expected.Items.Count; index++)
             {
                 Assert.Equal(expected.Items[index].Total, calculated.Items[index].Total);
                 Assert.Equal(expected.Items[index].Costs.Count, calculated.Items[index].Costs.Count);
+                Assert.Equal(expected.Items[index].ParcelType, calculated.Items[index].ParcelType);
 
-                for (int j = 0; j < expected.Items[index].Costs.Count; j++)
+                foreach (var expectedCost in expected.Items[index].Costs)
                 {
-                    Assert.Equal(expected.Items[index].Costs[j].Name, calculated.Items[index].Costs[j].Name);
-                    Assert.Equal(expected.Items[index].Costs[j].Price, calculated.Items[index].Costs[j].Price);
+                    Assert.True(calculated.Items[index].Costs.ContainsKey(expectedCost.Key));
+                    var cost = calculated.Items[index].Costs[expectedCost.Key];
+
+                    Assert.Equal(expectedCost.Value, cost);
                 }
             }
         }
